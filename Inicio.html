@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        /* Tema cambiado para concordar con el resto de las páginas */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #acacac;
+            color: #000000; /* Cambiar el color del texto a negro */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            width: 100%;
+
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #666;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #c4c4c4;
+            color: #fff; /* Cambiar el color del texto a negro */
+        }
+        input[type="submit"] {
+            background-color: #17a2b8; /* Concordancia con tema */
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #177f8f; /* se oscurece al pasar el mouse */
+        }
+        label {
+            color: #fff; /* Cambiar el color del texto a blanco */
+        }
+        p a {
+            color: #17a2b8; 
+        }
+        p a:hover {
+            color: #177f8f; 
+        }
+    </style>
+</head>
+<body>
+  <form action="/login" method="post">
+    <h2>Iniciar Sesión</h2>
+    <label for="email">Correo electrónico:</label>
+    <input type="text" id="email" name="email" required>
+
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required>
+
+    <input type="button" id="submitButton" value="Iniciar Sesión">
+
+    <p><a href="/restablecer">¿Olvidaste tu contraseña?</a></p>
+  </form>
+
+  <script>
+    const submitButton = document.getElementById("submitButton");
+
+    submitButton.addEventListener("click", function(event) {
+      event.preventDefault(); // Prevent default form submission
+      window.location.href = "your_internal_file.html"; // REEMPLAZAR CON EL ARCHIVO DE CATÁLOGOS! NO OLVIDAR!
+    });
+  </script>
+</body>
+</html>
