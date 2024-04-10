@@ -174,27 +174,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTOS</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
-        .autos-heading {
-            font-size: 4em;
-            margin-top: 50px;
-            color: #333;
-        }
-    </style>
+    <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1 class="autos-heading">AUTOS</h1>
+    
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                </button>
+            </div>
+            <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
+                <div class="user-logo">
+                    <div class="img" style="background-image: url(images/logo.jpg);"></div>
+                    <h3>Golden Grow</h3>
+                </div>
+            </div>
+            <ul class="list-unstyled components mb-5">
+                <li class="active">
+                    <a href="#"><span class="fa fa-home mr-3"></span> Inicio</a>
+                </li>
+                <li>
+                    <a href="autos.html"><span class="fa fa-car mr-3"></span> Autos</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-trophy mr-3"></span> Mejor Reseña</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-cog mr-3"></span> Configuración</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-support mr-3"></span> Soporte</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-sign-out mr-3"></span> Cerrar Sesión</a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <!-- Contenido de la página -->
+        <div id="content" class="p-4 p-md-5 pt-5">
+            <h2 class="mb-4">Dashboard</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Ventas</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, magnam!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Usuarios Activos</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, magnam!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Productos Vendidos</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, magnam!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Pedidos Pendientes</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, magnam!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
 >>>>>>> bc6ce67 (mi segundo commit)
