@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard</title>
+    <title>Configuración</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -9,6 +9,62 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Estilos para el tema oscuro */
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Estilos adicionales para el interruptor */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 34px;
+            position: relative;
+            width: 60px;
+        }
+
+        .theme-switch input {
+            display:none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 26px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 26px;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
 </head>
 <body>
     
@@ -49,43 +105,43 @@
 
         <!-- Contenido de la página -->
         <div id="content" class="p-4 p-md-5 pt-5">
-            <h2 class="mb-4">Dashboard</h2>
+            <h2 class="mb-4">Configuración</h2>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox">
+                    <div class="slider round"></div>
+                </label>
+                <em>Activar tema oscuro</em>
+            </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Total de Ventas</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, magnam!</p>
+                            <h5 class="card-title">Opción 1</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Usuarios Activos</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, magnam!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Productos Vendidos</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, magnam!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Pedidos Pendientes</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, magnam!</p>
+                            <h5 class="card-title">Opción 2</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const checkbox = document.getElementById('checkbox');
+
+        checkbox.addEventListener('change', () => {
+            // Cambiar el tema de la página
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.js"></script>

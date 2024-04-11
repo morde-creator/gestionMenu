@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Soporte - Autos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos desde aquiiii */
+    </style>
+</head>
+<body>
+    
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                </button>
+            </div>
+            <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
+                <div class="user-logo">
+                    <div class="img" style="background-image: url(images/logo.jpg);"></div>
+                    <h3>Golden Grow</h3>
+                </div>
+            </div>
+            <ul class="list-unstyled components mb-5">
+                <li>
+                    <a href="index.html"><span class="fa fa-home mr-3"></span> Inicio</a>
+                </li>
+                <li>
+                    <a href="autos.html"><span class="fa fa-car mr-3"></span> Autos</a>
+                </li>
+                <li>
+                    <a href="mejor_reseña.html"><span class="fa fa-trophy mr-3"></span> Mejor Reseña</a>
+                </li>
+                <li>
+                    <a href="configuracion.html"><span class="fa fa-cog mr-3"></span> Configuración</a>
+                </li>
+                <li class="active">
+                    <a href="soporte.html" data-toggle="modal" data-target="#consultaModal"><span class="fa fa-support mr-3"></span> Soporte</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-sign-out mr-3"></span> Cerrar Sesión</a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <!-- Agregar el contenido -->
+        <div id="content" class="p-4 p-md-5 pt-5">
+            <h2 class="mb-4">Soporte</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Soporte Técnico</h5>
+                                <p class="card-text">¿Tienes problemas técnicos con tu vehículo? ¡Estamos aquí para ayudarte! Contáctanos para asistencia técnica.</p>
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#contactoModal">Contactar Soporte</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Preguntas Frecuentes</h5>
+                                <p class="card-text">Consulta nuestras preguntas frecuentes para encontrar respuestas a las dudas más comunes sobre compras en línea, validación de cuentas y problemas relacionados con las cuentas.</p>
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#consultaModal">Ver Preguntas Frecuentes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de contacto de soporte -->
+    <div class="modal fade" id="contactoModal" tabindex="-1" role="dialog" aria-labelledby="contactoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactoModalLabel">Contactar Soporte</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" class="form-control" id="telefono" placeholder="Ingrese su teléfono">
+                        </div>
+                        <p>Nos pondremos en contacto a la brevedad posible.</p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Enviar Consulta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de preguntas frecuentes -->
+    <div class="modal fade" id="consultaModal" tabindex="-1" role="dialog" aria-labelledby="consultaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="consultaModalLabel">Preguntas Frecuentes - Soporte</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¡Por supuesto! Aquí tienes respuestas más breves para preguntas frecuentes sobre sistemas web:</p>
+                    <ol>
+                        <li>
+                            <strong>¿Cómo inicio sesión?</strong>
+                            <p>Haz clic en "Inicio de sesión" y proporciona tu nombre de usuario y contraseña.</p>
+                        </li>
+                        <li>
+                            <strong>¿Qué hago si olvidé mi contraseña?</strong>
+                            <p>Haz clic en "¿Olvidaste tu contraseña?" para restablecerla.</p>
+                        </li>
+                        <li>
+                            <strong>¿Cómo cambio mi contraseña?</strong>
+                            <p>Ve a "Configuración" o "Perfil" después de iniciar sesión.</p>
+                        </li>
+                        <li>
+                            <strong>¿Cómo actualizo mi información de perfil?</strong>
+                            <p>Ve a "Configuración" o "Perfil" después de iniciar sesión.</p>
+                        </li>
+                        <li>
+                            <strong>¿Qué hago si tengo problemas técnicos?</strong>
+                            <p>Intenta actualizar la página o comunícate con soporte técnico.</p>
+                        </li>
+                        <li>
+                            <strong>¿Cómo cierro sesión de manera segura?</strong>
+                            <p>Haz clic en "Cerrar sesión" cerca de tu nombre de usuario.</p>
+                        </li>
+                        <li>
+                            <strong>¿Qué debo hacer si olvido mi nombre de usuario?</strong>
+                            <p>Haz clic en "¿Olvidaste tu nombre de usuario?" en la página de inicio de sesión.</p>
+                        </li>
+                        <li>
+                            <strong>¿Dónde puedo encontrar ayuda adicional?</strong>
+                            <p>Busca en la sección de "Ayuda" o "Soporte" del sitio web.</p>
+                        </li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
