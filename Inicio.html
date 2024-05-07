@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <style>
         /* Estilos similares al diseño previo */
         body {
@@ -29,7 +30,7 @@
         }
         h2 {
             margin-bottom: 20px;
-            color: #007bff; /* Cambiar el color del título a azul */
+            color: #208cff; /* Cambiar el color del título a azul */
         }
         input[type="text"],
         input[type="password"],
@@ -41,7 +42,7 @@
             box-sizing: border-box;
         }
         input[type="submit"] {
-            background-color: #007bff; /* Concordancia con tema */
+            background-color: #208cff; /* Concordancia con tema */
             color: white;
             cursor: pointer;
         }
@@ -53,7 +54,7 @@
             font-size: 16px;
         }
         p a {
-            color: #007bff; /* Cambiar el color del enlace a azul */
+            color: #208cff; /* Cambiar el color del enlace a azul */
             text-decoration: none;
         }
         p a:hover {
@@ -79,23 +80,29 @@
   </form>
 
   <script>
-    const loginForm = document.getElementById("loginForm");
+    document.addEventListener("DOMContentLoaded", function() {
+      const loginForm = document.getElementById("loginForm");
 
-    loginForm.addEventListener("submit", function(event) {
-      event.preventDefault(); // Evitar el envío predeterminado del formulario
+      loginForm.addEventListener("submit", function(event) {
+        event.preventDefault(); // Evitar el envío predeterminado del formulario
 
-      // Obtener los valores del formulario
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+        // Obtener los valores del formulario
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-      // Verificar si el usuario y la contraseña son correctos
-      if (email === "admin" && password === "admin") {
-        // Inicio de sesión exitoso, redirigir al usuario a la página index.html
-        window.location.href = "index.html";
-      } else {
-        // Mostrar mensaje de error si las credenciales no son correctas
-        document.getElementById("errorMessage").style.display = "block";
-      }
+        // Recuperar el correo electrónico y la contraseña almacenados de localStorage
+        const storedEmail = localStorage.getItem("email");
+        const storedPassword = localStorage.getItem("password");
+
+        // Comprobar si el correo electrónico y la contraseña ingresados coinciden con las credenciales almacenadas
+        if (email === storedEmail && password === storedPassword) {
+          // Inicio de sesión exitoso, redirigir al usuario a la página index.html
+          window.location.href = "index.html";
+        } else {
+          // Mostrar mensaje de error si las credenciales son incorrectas
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      });
     });
   </script>
 </body>
