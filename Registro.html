@@ -11,7 +11,7 @@
     /* Estilos similares al diseño previo */
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
+      background-image: url('./images/registrybg.jpg');
       color: #343a40; /* Cambiar el color del texto a negro */
       margin: 0;
       padding: 0;
@@ -19,15 +19,25 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      position: relative; /* Add position relative to allow absolute positioning of overlay */
     }
-    form {
-      background-color: #ffffff;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity (0.3) for the desired tint */
+    }
+    .form-container {
+      background-color: rgba(255, 255, 255, 1);
       padding: 20px;
-      border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       max-width: 400px;
       width: 100%;
       text-align: center;
+      position: relative; /* Ensure that z-index works */
+      z-index: 2; /* Ensure the form is above the overlay */
     }
     h2 {
       margin-bottom: 20px;
@@ -65,27 +75,24 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <form id="registrationForm" action="/registro" method="post">
-          <h2>Registro de Usuario</h2>
-          <div class="form-group">
-            <label for="username">Nombre de usuario:</label>
-            <input type="text" id="username" name="username" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Correo electrónico:</label>
-            <input type="email" id="email" name="email" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" class="form-control" required>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Registrar</button>
-        </form>
+  <div class="overlay"></div>
+  <div class="form-container">
+    <form id="registrationForm" action="/registro" method="post">
+      <h2>Registro de Usuario</h2>
+      <div class="form-group">
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" name="username" class="form-control" required>
       </div>
-    </div>
+      <div class="form-group">
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+    </form>
   </div>
 
   <!-- Agregar Bootstrap JS (jQuery es necesario para Bootstrap) -->

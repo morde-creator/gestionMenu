@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
@@ -10,7 +10,8 @@
         /* Estilos similares al diseño previo */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
+            background-image: url('./images/loginbg.jpg');
+            background-size: cover; /* Ensure the background covers the entire viewport */
             color: #343a40; /* Cambiar el color del texto a negro */
             margin: 0;
             padding: 0;
@@ -18,92 +19,122 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            position: relative; /* Add position relative to allow absolute positioning of overlay */
         }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.3); /* Adjust opacity (0.3) for the desired tint */
+            z-index: 1; /* Ensure the overlay stays above the background */
+        }
+
         form {
+            position: relative; /* Ensure the form stays on top of the overlay */
+            z-index: 2; /* Set a higher z-index to keep the form above the overlay */
             background-color: #ffffff;
             padding: 20px;
-            border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             max-width: 300px;
             width: 100%;
             text-align: center;
         }
+
         h2 {
             margin-bottom: 20px;
             color: #208cff; /* Cambiar el color del título a azul */
         }
+
         input[type="text"],
         input[type="password"],
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            outline: none;
+        }
+
         input[type="submit"] {
             width: 100%;
             padding: 10px;
             margin: 8px 0;
             border-radius: 5px;
             box-sizing: border-box;
-        }
-        input[type="submit"] {
+            border: none;
+            outline: none;
             background-color: #208cff; /* Concordancia con tema */
             color: white;
             cursor: pointer;
         }
+
         input[type="submit"]:hover {
             background-color: #0056b3; /* se oscurece al pasar el mouse */
         }
+
         label {
             color: #343a40; /* Cambiar el color del texto a negro */
             font-size: 16px;
         }
+
         p a {
             color: #208cff; /* Cambiar el color del enlace a azul */
             text-decoration: none;
         }
+
         p a:hover {
             color: #0056b3; /* Se oscurece el color del enlace al pasar el mouse */
         }
     </style>
 </head>
 <body>
-  <form id="loginForm" action="/login" method="post">
-    <h2>Iniciar Sesión</h2>
-    <label for="email">Correo electrónico:</label>
-    <input type="text" id="email" name="email" required>
+    <div class="overlay"></div>
+    <form id="loginForm" action="/login" method="post">
+        <h2>Iniciar Sesión</h2>
+        <label for="email">Correo electrónico:</label>
+        <input type="text" id="email" name="email" class="form-control" required>
 
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="password" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" class="form-control" required>
 
-    <input type="submit" value="Iniciar Sesión">
+        <input type="submit" value="Iniciar Sesión">
 
-    <p id="errorMessage" style="color: red; display: none;">Correo electrónico o contraseña incorrectos.</p>
+        <p id="errorMessage" style="color: red; display: none;">Correo electrónico o contraseña incorrectos.</p>
 
-    <!-- Botón para registrar usuario -->
-    <a href="Registro.html" class="btn btn-primary btn-block">Registrarse</a>
-  </form>
+        <!-- Botón para registrar usuario -->
+        <a href="Registro.html" class="btn btn-primary btn-block">Registrarse</a>
+    </form>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const loginForm = document.getElementById("loginForm");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginForm = document.getElementById("loginForm");
 
-      loginForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Evitar el envío predeterminado del formulario
+            loginForm.addEventListener("submit", function(event) {
+                event.preventDefault(); // Evitar el envío predeterminado del formulario
 
-        // Obtener los valores del formulario
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+                // Obtener los valores del formulario
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
 
-        // Recuperar el correo electrónico y la contraseña almacenados de localStorage
-        const storedEmail = localStorage.getItem("email");
-        const storedPassword = localStorage.getItem("password");
+                // Recuperar el correo electrónico y la contraseña almacenados de localStorage
+                const storedEmail = localStorage.getItem("email");
+                const storedPassword = localStorage.getItem("password");
 
-        // Comprobar si el correo electrónico y la contraseña ingresados coinciden con las credenciales almacenadas
-        if (email === storedEmail && password === storedPassword) {
-          // Inicio de sesión exitoso, redirigir al usuario a la página index.html
-          window.location.href = "index.html";
-        } else {
-          // Mostrar mensaje de error si las credenciales son incorrectas
-          document.getElementById("errorMessage").style.display = "block";
-        }
-      });
-    });
-  </script>
+                // Comprobar si el correo electrónico y la contraseña ingresados coinciden con las credenciales almacenadas
+                if (email === storedEmail && password === storedPassword) {
+                    // Inicio de sesión exitoso, redirigir al usuario a la página index.html
+                    window.location.href = "index.html";
+                } else {
+                    // Mostrar mensaje de error si las credenciales son incorrectas
+                    document.getElementById("errorMessage").style.display = "block";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
