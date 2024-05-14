@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro Exitoso</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- Agregar Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Agregar la fuente Poppins desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <style>
         /* Estilos similares al diseño previo */
         body {
             font-family: 'Poppins', sans-serif;
-            background-image: url('./images/goodbye.jpg');
+            background-color: #20c997; /* Cambiar el color de fondo a verde */
             color: #343a40; /* Cambiar el color del texto a negro */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;position: relative; /* Add position relative to allow absolute positioning of overlay */
+            height: 100vh;
+            position: relative; /* Agregar posición relativa para permitir la posición absoluta del overlay */
         }
+
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(127, 162, 202, 0.5); /* Adjust opacity (0.3) for the desired tint */
+            background-color: rgba(255, 255, 255, 0.3); /* Ajustar opacidad (0.3) para el tono deseado */
+            z-index: 1; /* Asegurar que el overlay esté por encima del fondo */
         }
+
         form {
-            position: relative; /* Ensure the form stays on top of the overlay */
-            z-index: 1; /* Set a higher z-index to keep the form above the overlay */
+            position: relative; /* Asegurar que el formulario esté por encima del overlay */
+            z-index: 2; /* Establecer un z-index más alto para mantener el formulario por encima del overlay */
             background-color: #ffffff;
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -37,37 +43,63 @@
             width: 100%;
             text-align: center;
         }
+
         h2 {
             margin-bottom: 20px;
             color: #007bff; /* Cambiar el color del título a azul */
             font-family: 'Poppins', sans-serif; /* Aplicar la fuente Poppins al título */
         }
-        label {
-            color: #343a40; /* Cambiar el color del texto a negro */
-            font-size: 16px;
-        }
+
         .admin-key {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        button {
             margin-top: 20px;
-            font-weight: bold;
+            background-color: #007bff; /* Concordancia con tema */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Se oscurece al pasar el mouse */
+        }
+
+        .note {
+            margin-top: 20px;
+            color: #6c757d; /* Cambiar el color del texto a gris */
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <form action="/login" method="post">
-    <h2>Registro Exitoso</h2>
-    <label>Tu registro ha sido completado con éxito.</label>
-    <p class="admin-key">Admin Key: <span id="adminKey"></span></p>
-  </form>
+    <div class="overlay"></div>
+    <!-- Formulario de registro exitoso -->
+    <form id="registrationForm">
+        <h2>Registro Exitoso</h2>
+        <!-- Mostrar la Admin Key si está disponible -->
+        <p class="admin-key">Admin Key: <span id="adminKey"></span></p>
+        <!-- Botón para volver al inicio -->
+        <!-- Nota: Se utiliza formaction en el botón para especificar la URL a la que se enviará el formulario -->
+        <input type="submit" value="Volver al Inicio" formaction="Inicio.html" class="btn btn-primary">
+        <!-- Nota para el usuario -->
+        <p class="note">Nota: La Admin Key no se volverá a mostrar.</p>
+    </form>
 
-  <script>
-    // Obtener la adminKey de localStorage
-    const adminKey = localStorage.getItem("adminKey");
-
-    // Mostrar la adminKey en la página si está disponible
-    if (adminKey) {
-      document.getElementById("adminKey").textContent = adminKey;
-    }
-  </script>
+    <!-- Script para mostrar la Admin Key -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtener la Admin Key de localStorage
+            const adminKey = localStorage.getItem("adminKey");
+            // Mostrar la Admin Key en la página si está disponible
+            if (adminKey) {
+                document.getElementById("adminKey").textContent = adminKey;
+            }
+        });
+    </script>
 </body>
 </html>

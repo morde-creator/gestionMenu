@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrar Datos de Usuario</title>
+  <!-- Agregar Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Agregar la fuente Poppins desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+  <style>
+    /* Estilos similares al diseño previo */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #a80000; /* Cambiar el color de fondo a rojo oscuro */
+      color: #343a40; /* Cambiar el color del texto a negro */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+    }
+    button {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Título de la página -->
+    <h2>Borrar Datos de Usuario</h2>
+    <!-- Botón para borrar los datos de usuario -->
+    <button id="deleteUserDataBtn" class="btn btn-danger">Borrar Todos los Datos de Usuario</button>
+  </div>
+
+  <!-- Agregar Bootstrap JS (jQuery es necesario para Bootstrap) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Función para generar una operación matemática simple (suma o resta de números unitarios)
+    function generateMathOperation() {
+      // Generar dos números aleatorios del 1 al 9
+      const x = Math.floor(Math.random() * 9) + 1;
+      const y = Math.floor(Math.random() * 9) + 1;
+
+      // Determinar aleatoriamente si la operación será suma o resta (1 para suma, 0 para resta)
+      const operation = Math.round(Math.random());
+
+      // Devolver la operación como una cadena de texto
+      return operation === 1 ? `${x} + ${y}` : `${x} - ${y}`;
+    }
+
+    // Función para el primer pop-up de confirmación
+    function confirmDeleteUserData() {
+      // Mostrar un pop-up de confirmación
+      if (confirm("¿Estás seguro de que quieres borrar todos los datos de usuario? Esta acción no se puede deshacer.")) {
+        // Si el usuario confirma, mostrar el segundo pop-up
+        confirmSecondDeleteUserData();
+      }
+    }
+
+    // Función para el segundo pop-up de confirmación
+    function confirmSecondDeleteUserData() {
+      // Mostrar un segundo pop-up más cauteloso
+      if (confirm("¿Segurito segurito? Esta acción puede ser desastrosa para la empresa.")) {
+        // Si el usuario confirma, solicitar una operación matemática
+        const mathOperation = generateMathOperation();
+        const result = prompt(`¿Cuánto es ${mathOperation}? (Ingresa el resultado como un número)`);
+
+        // Verificar si el resultado es correcto
+        if (result && eval(mathOperation) == result) {
+          // Si es correcto, borrar los datos de usuario del localStorage
+          localStorage.removeItem("username");
+          localStorage.removeItem("email");
+          localStorage.removeItem("password");
+          localStorage.removeItem("adminKey");
+
+          // Mostrar un mensaje de confirmación
+          alert("Todos los datos de usuario han sido borrados con éxito.");
+
+          // Redirigir al usuario a la página de inicio
+          window.location.href = "Inicio.html";
+        } else {
+          // Si el resultado es incorrecto, mostrar un mensaje de error
+          alert("Respuesta incorrecta. Inténtalo de nuevo.");
+        }
+      }
+    }
+
+    // Agregar un event listener para el botón de borrar datos de usuario
+    document.getElementById("deleteUserDataBtn").addEventListener("click", confirmDeleteUserData);
+  </script>
+</body>
+</html>
