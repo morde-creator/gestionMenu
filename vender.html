@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Soporte - Autos</title>
+    <title>Vender</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Estilos desde aquiiii */
-    </style>
 </head>
 <body>
     <div class="wrapper d-flex align-items-stretch">
@@ -28,14 +25,14 @@
                 </div>
             </div>
             <ul class="list-unstyled components mb-5">
-                <li class="active">
+                <li>
                     <a href="index.html"><span class="fa fa-home mr-3"></span> Inicio</a>
                 </li>
                 <li>
                     <a href="autos.html"><span class="fa fa-car mr-3"></span> Autos</a>
                 </li>
-                <li>
-                    <a href="mejor_reseña.html"><span class="fa fa-trophy mr-3"></span> Mejor Reseña</a>
+                <li class="active">
+                    <a href="vender.html"><span class="fa fa-dollar mr-3"></span> Vender</a>
                 </li>
                 <li>
                     <a href="configuracion.html"><span class="fa fa-cog mr-3"></span> Configuración</a>
@@ -46,74 +43,77 @@
                 <li>
                     <a href="Cierre.html"><span class="fa fa-sign-out mr-3"></span> Cerrar Sesión</a>
                 </li>
-                <!-- Nueva sección para vender -->
-                <li>
-                    <a href="vender.html"><span class="fa fa-dollar mr-3"></span> Vender</a>
-                </li>
             </ul>
         </nav>
+
         <div id="content" class="p-4 p-md-5 pt-5">
-            <h2 class="mb-4">Tasar Auto</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <form id="formulario">
-                        <div class="form-group">
-                            <label for="marca">Marca:</label>
-                            <select class="form-control" id="marca" required>
-                                <option value="" disabled selected>Seleccione la marca</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="modelo">Modelo:</label>
-                            <select class="form-control" id="modelo" required>
-                                <option value="" disabled selected>Seleccione el modelo</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="año">Año:</label>
-                            <select class="form-control" id="año" required>
-                                <option value="" disabled selected>Seleccione el año</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="precio">Precio:</label>
-                            <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del auto" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="kilometraje">Kilometraje:</label>
-                            <select class="form-control" id="kilometraje" required>
-                                <option value="" disabled selected>Seleccione el kilometraje</option>
-                                <option value="10000">Hasta 10,000 km</option>
-                                <option value="20000">Hasta 20,000 km</option>
-                                <option value="50000">Hasta 50,000 km</option>
-                                <option value="100000">Hasta 100,000 km</option>
-                                <option value="150000">Hasta 150,000 km</option>
-                                <option value="200000">Más de 150,000 km</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="condicion">Condición:</label>
-                            <select class="form-control" id="condicion" required>
-                                <option value="" disabled selected>Seleccione la condición</option>
-                                <option value="Nueva">Nueva</option>
-                                <option value="Usada">Usada</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Tasar Auto</button>
-                    </form>
-                    <div id="mensaje" class="alert alert-success mt-3" style="display: none;">
-                        Evaluaremos tu solicitud y nos contactaremos.
-                    </div>
+            <h2 class="mb-4">Cotizaciones Recibidas</h2>
+            <p>Gestiona tus cotizaciones de autos aquí.</p>
+            <table id="tabla-vehiculos" class="table">
+                <thead>
+                    <tr>
+                        <th>Seleccionar</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Año</th>
+                        <th>Precio</th>
+                        <th>Kilometraje</th>
+                        <th>Condición</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Contenido generado dinámicamente -->
+                </tbody>
+            </table>
+            <button id="vender-btn" class="btn btn-primary mt-3">Vender</button>
+            <button id="editar-btn" class="btn btn-warning mt-3" data-toggle="modal" data-target="#editarModal">Editar</button>
+            <button id="eliminar-btn" class="btn btn-danger mt-3">Eliminar</button>
+        </div>
+    </div>
+
+    <!-- Modal para editar vehículo -->
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarModalLabel">Editar Vehículo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="col-md-6">
-                    <h3>Agregar Fotos del Auto</h3>
-                    <input type="file" id="imagenes" accept="image/*" multiple>
-                    <small class="form-text text-muted">Seleccione una o más fotos del auto.</small>
-                    <div id="preview"></div>
+                <div class="modal-body">
+                    <form id="editar-form">
+                        <div class="form-group">
+                            <label for="marca">Marca</label>
+                            <input type="text" class="form-control" id="marca" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modelo">Modelo</label>
+                            <input type="text" class="form-control" id="modelo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="año">Año</label>
+                            <input type="number" class="form-control" id="año" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio">Precio</label>
+                            <input type="number" class="form-control" id="precio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="kilometraje">Kilometraje</label>
+                            <input type="number" class="form-control" id="kilometraje" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="condicion">Condición</label>
+                            <input type="text" class="form-control" id="condicion" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -123,104 +123,142 @@
                 $('#sidebar').toggleClass('active');
             });
 
-            const marcasModelos = {
-                "Toyota": ["Corolla", "Camry", "Rav4", "Yaris", "Highlander", "Prius", "Tacoma", "4Runner", "Sienna", "Avalon"],
-                "Ford": ["Fiesta", "Focus", "Mustang", "Escape", "Explorer", "F-150", "Ranger", "Edge", "Fusion", "Expedition"],
-                "Chevrolet": ["Spark", "Cruze", "Malibu", "Impala", "Equinox", "Tahoe", "Suburban", "Camaro", "Colorado", "Blazer"],
-                "Honda": ["Civic", "Accord", "CR-V", "Fit", "Pilot", "Ridgeline", "Odyssey", "Passport", "Insight", "HR-V"],
-                "Nissan": ["Versa", "Sentra", "Altima", "Maxima", "Murano", "Rogue", "Pathfinder", "Frontier", "Titan", "Armada"],
-                "BMW": ["3 Series", "5 Series", "7 Series", "X1", "X3", "X5", "X7", "Z4", "M3", "M5"],
-                "Audi": ["A3", "A4", "A6", "A8", "Q3", "Q5", "Q7", "TT", "R8", "e-tron"],
-                "Mercedes-Benz": ["A-Class", "C-Class", "E-Class", "S-Class", "GLA", "GLC", "GLE", "GLS", "G-Class", "EQC"],
-                "Volkswagen": ["Polo", "Golf", "Passat", "Jetta", "Tiguan", "Touareg", "Beetle", "Arteon", "Atlas", "ID.4"],
-                "Hyundai": ["Accent", "Elantra", "Sonata", "Tucson", "Santa Fe", "Palisade", "Kona", "Venue", "Ioniq", "Nexo"],
-                "Kia": ["Rio", "Forte", "Optima", "Stinger", "Sportage", "Sorento", "Telluride", "Seltos", "Carnival"],
-                "Mazda": ["Mazda2", "Mazda3", "Mazda6", "CX-3", "CX-5", "CX-9", "MX-5 Miata", "CX-30", "CX-50", "CX-60"],
-                "Subaru": ["Impreza", "Legacy", "Outback", "Forester", "Ascent", "BRZ", "WRX", "Crosstrek", "XV", "Solterra"],
-                "Jaguar": ["XE", "XF", "XJ", "E-PACE", "F-PACE", "I-PACE", "F-TYPE", "XK", "XJ220", "XFR"],
-                "Porsche": ["911", "Cayenne", "Macan", "Panamera", "Taycan", "Boxster", "Cayman", "918 Spyder", "Carrera GT", "356"],
-                "Fiat": ["500", "Panda", "Punto", "Tipo", "Doblo", "Qubo", "Ducato", "Fullback", "Talento", "Fiorino"],
-                "Renault": ["Clio", "Megane", "Captur", "Kadjar", "Scenic", "Talisman", "Kangoo", "Trafic", "Master", "Twingo"],
-                "Peugeot": ["208", "308", "3008", "5008", "Partner", "Expert", "Boxer", "Rifter", "Traveller", "108"],
-                "Citroen": ["C3", "C4", "C5", "Berlingo", "Jumpy", "Jumper", "SpaceTourer", "C1", "C-Zero", "C3 Aircross"],
-                "Opel": ["Corsa", "Astra", "Insignia", "Mokka", "Crossland", "Grandland", "Combo", "Vivaro", "Movano", "Zafira"],
-                "Seat": ["Ibiza", "Leon", "Ateca", "Arona", "Tarraco", "Alhambra", "Mii", "Toledo", "Altea", "Exeo"],
-                "Skoda": ["Octavia", "Fabia", "Superb", "Karoq", "Kodiaq", "Scala", "Kamiq", "Citigo", "Enyaq", "Rapid"],
-                "Dacia": ["Sandero", "Duster", "Logan", "Lodgy", "Dokker", "Spring", "Jogger", "Bigster", "Solenza", "Duster Oroch"],
-                "Mitsubishi": ["Mirage", "Eclipse Cross", "Outlander", "ASX", "L200", "Pajero", "Space Star", "Attrage", "Montero", "Delica"],
-                "Suzuki": ["Swift", "Vitara", "Ignis", "Jimny", "S-Cross", "Baleno", "Celerio", "Ertiga", "Alto", "Wagon R"],
-                "Tata": ["Tiago", "Tigor", "Nexon", "Harrier", "Safari", "Altroz", "Punch", "Indica", "Indigo", "Nano"],
-                "Mahindra": ["Scorpio", "XUV500", "Thar", "Bolero", "Marazzo", "KUV100", "TUV300", "Xylo", "Verito", "Quanto"],
-                "BYD": ["Tang", "Song", "Yuan", "Han", "Qin", "Dolphin", "Atto 3", "Seal", "D9", "E6"],
-                "Great Wall": ["Haval H6", "Wingle", "Haval H9", "Haval F7", "Poer", "Voleex C30", "Haval H2", "Haval H7", "Haval M6", "Haval F5"],
-                "Geely": ["Coolray", "Azkarra", "Emgrand", "Geometry C", "Boyue", "Vision", "Binyue", "Jiaji", "Xingrui", "Borui"],
-                "Chery": ["Tiggo", "Arrizo", "Fulwin", "Exeed", "QQ", "Cowin", "Karry", "Jaggi", "V5", "Riich"],
-                "Baic": ["BJ20", "BJ40", "EU-Series", "Huansu", "Weiwang", "Senova", "BinzhouTruck", "FotonTruck", "JennerTruck", "Beijing Auto Works"],
-                "Dongfeng": ["Fengshen", "Fengxing", "Jingyi", "Glory", "Yuan Cheng", "Lingzhi", "Joyion", "Joylong", "Mengshi", "Forthing"]
-            };
-
-            const cargarMarcas = () => {
-                const marcaSelect = $('#marca');
-                Object.keys(marcasModelos).forEach(marca => {
-                    marcaSelect.append(new Option(marca, marca));
+            const cargarAutos = () => {
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/vehiculos/',
+                    method: 'GET',
+                    success: function(data) {
+                        const tbody = $('#tabla-vehiculos tbody');
+                        tbody.empty();
+                        data.forEach(auto => {
+                            tbody.append(`
+                                <tr>
+                                    <td><input type="checkbox" class="vehiculo-checkbox" value="${auto.id}"></td>
+                                    <td>${auto.marca}</td>
+                                    <td>${auto.modelo}</td>
+                                    <td>${auto.año}</td>
+                                    <td>${auto.precio}</td>
+                                    <td>${auto.kilometraje}</td>
+                                    <td>${auto.condicion}</td>
+                                </tr>
+                            `);
+                        });
+                    }
                 });
             };
 
-            const cargarModelos = (marca) => {
-                const modeloSelect = $('#modelo');
-                modeloSelect.empty().append(new Option("Seleccione el modelo", "", true, true));
-                if (marcasModelos[marca]) {
-                    marcasModelos[marca].forEach(modelo => {
-                        modeloSelect.append(new Option(modelo, modelo));
+            const venderAutos = () => {
+                const seleccionados = $('.vehiculo-checkbox:checked').map(function () {
+                    return $(this).val();
+                }).get();
+
+                if (seleccionados.length === 0) {
+                    alert('Debes seleccionar algún vehículo');
+                    return;
+                }
+
+                seleccionados.forEach(id => {
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/api/ventas/',
+                        method: 'POST',
+                        data: JSON.stringify({ vehiculo_id: id }),
+                        contentType: 'application/json',
+                        success: function() {
+                            alert('Vehículo vendido con éxito');
+                            cargarAutos();
+                        },
+                        error: function() {
+                            alert('Error al vender el vehículo');
+                        }
                     });
-                }
+                });
             };
 
-            const cargarAnios = () => {
-                const anioSelect = $('#año');
-                const currentYear = new Date().getFullYear();
-                for (let year = currentYear; year >= currentYear - 20; year--) {
-                    anioSelect.append(new Option(year, year));
+            const editarAuto = () => {
+                const seleccionados = $('.vehiculo-checkbox:checked').map(function () {
+                    return $(this).val();
+                }).get();
+
+                if (seleccionados.length !== 1) {
+                    alert('Debes seleccionar un único vehículo para editar');
+                    return;
                 }
-            };
 
-            $('#marca').change(function () {
-                const marcaSeleccionada = $(this).val();
-                cargarModelos(marcaSeleccionada);
-            });
+                const id = seleccionados[0];
 
-            $('#formulario').submit(function (e) {
-                e.preventDefault();
-                $('#mensaje').show();
-                alert("El vehículo ha sido ingresado y será evaluado. Un ejecutivo se comunicará contigo.");
-                setTimeout(function(){
-                    location.reload();
-                }, 3000);
-            });
+                $.ajax({
+                    url: `http://127.0.0.1:8000/api/vehiculos/${id}/`,
+                    method: 'GET',
+                    success: function(data) {
+                        $('#marca').val(data.marca);
+                        $('#modelo').val(data.modelo);
+                        $('#año').val(data.año);
+                        $('#precio').val(data.precio);
+                        $('#kilometraje').val(data.kilometraje);
+                        $('#condicion').val(data.condicion);
+                        $('#editarModal').modal('show');
 
-            const mostrarVistaPrevia = (event) => {
-                const files = event.target.files;
-                const preview = $('#preview');
-                preview.empty();
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const img = $('<img>').attr('src', e.target.result).css({
-                            'width': '100px',
-                            'height': '100px',
-                            'margin': '10px'
+                        $('#editar-form').off('submit').on('submit', function(e) {
+                            e.preventDefault();
+
+                            const nuevoAuto = {
+                                marca: $('#marca').val(),
+                                modelo: $('#modelo').val(),
+                                año: $('#año').val(),
+                                precio: $('#precio').val(),
+                                kilometraje: $('#kilometraje').val(),
+                                condicion: $('#condicion').val()
+                            };
+
+                            $.ajax({
+                                url: `http://127.0.0.1:8000/api/vehiculos/${id}/`,
+                                method: 'PUT',
+                                data: JSON.stringify(nuevoAuto),
+                                contentType: 'application/json',
+                                success: function() {
+                                    alert('Vehículo editado con éxito');
+                                    $('#editarModal').modal('hide');
+                                    cargarAutos();
+                                },
+                                error: function() {
+                                    alert('Error al editar el vehículo');
+                                }
+                            });
                         });
-                        preview.append(img);
-                    };
-                    reader.readAsDataURL(file);
-                }
+                    }
+                });
             };
 
-            $('#imagenes').change(mostrarVistaPrevia);
+            const eliminarAuto = () => {
+                const seleccionados = $('.vehiculo-checkbox:checked').map(function () {
+                    return $(this).val();
+                }).get();
 
-            cargarMarcas();
-            cargarAnios();
+                if (seleccionados.length === 0) {
+                    alert('Debes seleccionar algún vehículo');
+                    return;
+                }
+
+                seleccionados.forEach(id => {
+                    $.ajax({
+                        url: `http://127.0.0.1:8000/api/vehiculos/${id}/`,
+                        method: 'DELETE',
+                        success: function() {
+                            alert('Vehículo eliminado con éxito');
+                            cargarAutos();
+                        },
+                        error: function() {
+                            alert('Error al eliminar el vehículo');
+                        }
+                    });
+                });
+            };
+
+            $('#vender-btn').click(venderAutos);
+            $('#editar-btn').click(editarAuto);
+            $('#eliminar-btn').click(eliminarAuto);
+
+            cargarAutos();
         });
     </script>
 </body>
