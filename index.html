@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .btn-group .btn {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper d-flex align-items-stretch">
@@ -46,19 +52,30 @@
 
         <div id="content" class="p-4 p-md-5 pt-5">
             <h2 class="mb-4">Estadísticas de Ventas</h2>
-            <h5 class="mb-4">Vehículos Más Vendidos</h5>
-            <ul id="vehiculosMasVendidos">
-                <!-- Lista generada dinámicamente -->
-            </ul>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-4">Vehículos Más Vendidos</h5>
+                    <ul id="vehiculosMasVendidos">
+                        <!-- Lista generada dinámicamente -->
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="mb-4">Total de Ventas</h5>
+                    <canvas id="ventasChart" width="400" height="200"></canvas>
+                </div>
+            </div>
 
-            <h5 class="mb-4">Total de Ventas</h5>
-            <canvas id="ventasChart" width="400" height="200"></canvas>
+            <h5 class="mb-4">Vehículos Cotizados</h5>
+            <div id="vehiculosCotizados">
+                <!-- Lista generada dinámicamente -->
+            </div>
         </div>
     </div>
 
     <!-- Importación de scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
         function loadVentas() {
             $.ajax({
@@ -67,7 +84,7 @@
                 success: function(response) {
                     const ventas = response;
 
-                    // Agrupar y contar las ventas por vehículo
+                    // Agrupar y contar las ventas por vehículo y año
                     const vehiculosMap = {};
                     ventas.forEach(venta => {
                         const vehiculo = `${venta.vehiculo.marca} ${venta.vehiculo.modelo} (${venta.vehiculo.año})`;
@@ -83,15 +100,15 @@
                         .join('');
                     document.getElementById('vehiculosMasVendidos').innerHTML = vehiculosList;
 
-                    // Contar ventas por año
-                    const ventasPorAno = ventas.reduce((acc, venta) => {
-                        const ano = new Date(venta.fecha_venta).getFullYear();
-                        acc[ano] = (acc[ano] || 0) + 1;
+                    // Contar ventas por mes y año
+                    const ventasPorMesAno = ventas.reduce((acc, venta) => {
+                        const mesAno = new Date(venta.fecha_venta).toISOString().slice(0, 7);
+                        acc[mesAno] = (acc[mesAno] || 0) + 1;
                         return acc;
                     }, {});
 
-                    const labels = Object.keys(ventasPorAno);
-                    const data = Object.values(ventasPorAno);
+                    const labels = Object.keys(ventasPorMesAno);
+                    const data = Object.values(ventasPorMesAno);
 
                     const ctx = document.getElementById('ventasChart').getContext('2d');
                     new Chart(ctx, {
@@ -99,7 +116,7 @@
                         data: {
                             labels: labels,
                             datasets: [{
-                                label: 'Ventas por Año',
+                                label: 'Ventas por Mes y Año',
                                 data: data,
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                 borderColor: 'rgba(54, 162, 235, 1)',
@@ -119,11 +136,163 @@
                     console.error('Error al cargar las ventas:', error);
                 }
             });
+
+            // Cargar vehículos más vendidos
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/vehiculos_mas_vendidos/',
+                method: 'GET',
+                success: function(response) {
+                    const vehiculosMasVendidos = response;
+                    const vehiculosList = vehiculosMasVendidos.map(v => 
+                        `<li>${v['vehiculo__marca']} ${v['vehiculo__modelo']} (${v['vehiculo__año']}) - Vendido ${v.total_vendidos} veces</li>`
+                    ).join('');
+                    document.getElementById('vehiculosMasVendidos').innerHTML = vehiculosList;
+                },
+                error: function(error) {
+                    console.error('Error al cargar los vehículos más vendidos:', error);
+                }
+            });
+        }
+
+        function cargarVehiculosCotizados() {
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/vehiculos/',
+                method: 'GET',
+                success: function(response) {
+                    const vehiculos = response;
+                    const listaVehiculos = vehiculos.map(vehiculo => `
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                ${vehiculo.marca} ${vehiculo.modelo} (${vehiculo.año}) - Precio: ${vehiculo.precio}
+                                <div class="btn-group float-right">
+                                    <button class="btn btn-danger eliminar-btn" data-id="${vehiculo.id}">Eliminar</button>
+                                    <button class="btn btn-warning editar-btn" data-id="${vehiculo.id}">Editar</button>
+                                    <button class="btn btn-success vender-btn" data-id="${vehiculo.id}">Vender</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    $('#vehiculosCotizados').html(listaVehiculos);
+
+                    $('.vender-btn').click(function() {
+                        const id = $(this).data('id');
+                        $.ajax({
+                            url: 'http://127.0.0.1:8000/api/ventas/',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ vehiculo: id }),
+                            success: function() {
+                                alert('Vehículo vendido');
+                                loadVentas();
+                            },
+                            error: function(error) {
+                                alert('Error al vender el vehículo');
+                                console.error('Error al vender:', error.responseText);
+                            }
+                        });
+                    });
+
+                    $('.editar-btn').click(function() {
+                        const id = $(this).data('id');
+                        const vehiculo = vehiculos.find(v => v.id === id);
+                        if (vehiculo) {
+                            $('#editarVehiculoId').val(vehiculo.id);
+                            $('#marca').val(vehiculo.marca);
+                            $('#modelo').val(vehiculo.modelo);
+                            $('#año').val(vehiculo.año);
+                            $('#precio').val(vehiculo.precio);
+                            $('#editarVehiculoModal').modal('show');
+                        }
+                    });
+
+                    $('.eliminar-btn').click(function() {
+                        const id = $(this).data('id');
+                        $.ajax({
+                            url: `http://127.0.0.1:8000/api/vehiculos/${id}/`,
+                            method: 'DELETE',
+                            success: function() {
+                                alert('Vehículo eliminado');
+                                cargarVehiculosCotizados();
+                            },
+                            error: function() {
+                                alert('Error al eliminar el vehículo');
+                            }
+                        });
+                    });
+                },
+                error: function(error) {
+                    console.error('Error al cargar los vehículos cotizados:', error);
+                }
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             loadVentas();
+            cargarVehiculosCotizados();
+
+            $('#editarVehiculoForm').submit(function(e) {
+                e.preventDefault();
+                const id = $('#editarVehiculoId').val();
+                const data = {
+                    marca: $('#marca').val(),
+                    modelo: $('#modelo').val(),
+                    año: $('#año').val(),
+                    precio: $('#precio').val()
+                };
+                $.ajax({
+                    url: `http://127.0.0.1:8000/api/vehiculos/${id}/`,
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function() {
+                        alert('Vehículo actualizado');
+                        $('#editarVehiculoModal').modal('hide');
+                        cargarVehiculosCotizados();
+                    },
+                    error: function(error) {
+                        alert('Error al actualizar el vehículo');
+                        console.error('Error al actualizar:', error.responseText);
+                    }
+                });
+            });
         });
     </script>
+
+    <!-- Modal para editar vehículo -->
+    <div class="modal fade" id="editarVehiculoModal" tabindex="-1" aria-labelledby="editarVehiculoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarVehiculoModalLabel">Editar Vehículo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editarVehiculoForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="editarVehiculoId">
+                        <div class="mb-3">
+                            <label for="marca" class="form-label">Marca</label>
+                            <input type="text" class="form-control" id="marca" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modelo" class="form-label">Modelo</label>
+                            <input type="text" class="form-control" id="modelo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="año" class="form-label">Año</label>
+                            <input type="number" class="form-control" id="año" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input type="number" class="form-control" id="precio" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
