@@ -134,10 +134,9 @@
                 // Comprobar si el correo electrónico y la contraseña ingresados coinciden con las credenciales almacenadas
                 if (email === storedEmail && password === storedPassword) {
                     // Inicio de sesión exitoso, verificar si es una cuenta de administrador
-                    if (email === "admin@example.com" && password === "adminpassword") {
+                    if (storedAdminKey) {
                         // Solicitar la AdminKey si se intenta iniciar sesión con una cuenta de administrador
                         const adminKey = prompt("Por favor, ingrese la AdminKey:");
-
                         // Comprobar si la AdminKey ingresada coincide con la almacenada
                         if (adminKey === storedAdminKey) {
                             // Si coincide, redirigir al usuario a la página Admin-Autos2.html
