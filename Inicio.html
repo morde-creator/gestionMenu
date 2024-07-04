@@ -9,19 +9,18 @@
     <!-- Agregar la fuente Poppins desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <style>
-        /* Estilos similares al diseño previo */
         body {
             font-family: 'Poppins', sans-serif;
             background-image: url('./images/loginbg.jpg');
-            background-size: cover; /* Asegura que el fondo cubra toda la ventana */
-            color: #343a40; /* Cambiar el color del texto a negro */
+            background-size: cover;
+            color: #343a40;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            position: relative; /* Agregar posición relativa para permitir la superposición absoluta */
+            position: relative;
         }
 
         .overlay {
@@ -30,13 +29,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.3); /* Ajustar opacidad (0.3) para el tono deseado */
-            z-index: 1; /* Asegurar que la superposición esté sobre el fondo */
+            background-color: rgba(255, 255, 255, 0.3);
+            z-index: 1;
         }
 
         form {
-            position: relative; /* Asegurar que el formulario esté sobre la superposición */
-            z-index: 2; /* Establecer un z-index más alto para mantener el formulario sobre la superposición */
+            position: relative;
+            z-index: 2;
             background-color: #ffffff;
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -47,7 +46,7 @@
 
         h2 {
             margin-bottom: 20px;
-            color: #208cff; /* Cambiar el color del título a azul */
+            color: #208cff;
         }
 
         input[type="text"],
@@ -70,27 +69,27 @@
             box-sizing: border-box;
             border: none;
             outline: none;
-            background-color: #208cff; /* Concordancia con el tema */
+            background-color: #208cff;
             color: white;
             cursor: pointer;
         }
 
         input[type="submit"]:hover {
-            background-color: #0056b3; /* Se oscurece al pasar el mouse */
+            background-color: #0056b3;
         }
 
         label {
-            color: #343a40; /* Cambiar el color del texto a negro */
+            color: #343a40;
             font-size: 16px;
         }
 
         p a {
-            color: #208cff; /* Cambiar el color del enlace a azul */
+            color: #208cff;
             text-decoration: none;
         }
 
         p a:hover {
-            color: #0056b3; /* Se oscurece el color del enlace al pasar el mouse */
+            color: #0056b3;
         }
     </style>
 </head>
@@ -115,44 +114,58 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Obtener el formulario de inicio de sesión por su ID
             const loginForm = document.getElementById("loginForm");
 
-            // Agregar un evento de escucha al formulario cuando se envía
             loginForm.addEventListener("submit", function(event) {
-                event.preventDefault(); // Evitar el envío predeterminado del formulario
+                event.preventDefault();
 
-                // Obtener los valores del formulario
                 const email = document.getElementById("email").value;
                 const password = document.getElementById("password").value;
 
-                // Recuperar el correo electrónico y la contraseña almacenados de localStorage
-                const storedEmail = localStorage.getItem("email");
-                const storedPassword = localStorage.getItem("password");
-                const storedAdminKey = localStorage.getItem("adminKey"); // Obtener la clave de administrador almacenada
-
-                // Comprobar si el correo electrónico y la contraseña ingresados coinciden con las credenciales almacenadas
-                if (email === storedEmail && password === storedPassword) {
-                    // Inicio de sesión exitoso, verificar si es una cuenta de administrador
-                    if (storedAdminKey) {
-                        // Solicitar la AdminKey si se intenta iniciar sesión con una cuenta de administrador
-                        const adminKey = prompt("Por favor, ingrese la AdminKey:");
-                        // Comprobar si la AdminKey ingresada coincide con la almacenada
-                        if (adminKey === storedAdminKey) {
-                            // Si coincide, redirigir al usuario a la página Admin-Autos2.html
-                            window.location.href = "Admin-Autos2.html";
+                // Hacer una solicitud POST a la API de Django
+                fetch('http://tu-api-django.com/api/login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email, password: password })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Inicio de sesión exitoso
+                        if (data.is_admin) {
+                            // Si es admin, solicitar AdminKey
+                            const adminKey = prompt("Por favor, ingrese la AdminKey:");
+                            // Hacer otra solicitud para verificar AdminKey
+                            fetch('http://tu-api-django.com/api/verify-admin-key/', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ admin_key: adminKey })
+                            })
+                            .then(response => response.json())
+                            .then(adminData => {
+                                if (adminData.success) {
+                                    window.location.href = "Admin-Autos2.html";
+                                } else {
+                                    alert("AdminKey incorrecta.");
+                                }
+                            });
                         } else {
-                            // Si no coincide, mostrar mensaje de error
-                            alert("AdminKey incorrecta.");
+                            // Usuario normal
+                            window.location.href = "index.html";
                         }
                     } else {
-                        // Si no es una cuenta de administrador, redirigir al usuario a la página index.html
-                        window.location.href = "index.html";
+                        // Mostrar mensaje de error
+                        document.getElementById("errorMessage").style.display = "block";
                     }
-                } else {
-                    // Mostrar mensaje de error si las credenciales son incorrectas
-                    document.getElementById("errorMessage").style.display = "block";
-                }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Ocurrió un error al intentar iniciar sesión.");
+                });
             });
         });
     </script>
