@@ -9,6 +9,32 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import LoginForm
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def register_view(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+        admin_key = data.get('adminKey')
+
+        if not username or not email or not password:
+            return JsonResponse({'success': False, 'message': 'Faltan datos requeridos.'})
+
+        try:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+
+    return JsonResponse({'success': False, 'message': 'Método no permitido.'})
+
 
 def login_view(request):
     if request.method == "POST":
