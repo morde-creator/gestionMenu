@@ -1,5 +1,4 @@
 AUTH_USER_MODEL = 'autos.CustomUser'
-# settings.py
 
 TEMPLATES = [
     {
