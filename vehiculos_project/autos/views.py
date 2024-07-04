@@ -29,7 +29,7 @@ def login_view(request):
     else:
         form = LoginForm()
 
-    return render(request, 'Inicio.html', {'form': form})
+    return render(request, 'login/login.html', {'form': form})
 
 
 class VehiculoViewSet(viewsets.ModelViewSet):
